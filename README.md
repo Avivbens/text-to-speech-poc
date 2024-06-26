@@ -2,6 +2,10 @@
 
 This is a simple POC to test the Text To Speech functionality in Python.
 
+## Model
+
+This POC is using the [`speecht5_tts`](https://huggingface.co/microsoft/speecht5_tts) Model, by Microsoft.
+
 ## Installation
 
 ```bash

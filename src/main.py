@@ -24,6 +24,8 @@ os.environ["REQUESTS_CA_BUNDLE"] = certifi.where()
 # load environment variables
 load_dotenv(find_dotenv())
 
+TARGET_FILE = "dist/output.wav"
+
 
 def query_model(text):
     processor = SpeechT5Processor.from_pretrained("microsoft/speecht5_tts")
@@ -37,13 +39,6 @@ def query_model(text):
     )
     speaker_embeddings = torch.tensor(embeddings_dataset[7306]["xvector"]).unsqueeze(0)
 
-    # embeddings_dataset = load_dataset(
-    #     "blabble-io/libritts_r", "clean", split="train.clean.100"
-    # )
-    # speaker_embeddings = torch.tensor(embeddings_dataset["train.clean.100"]).unsqueeze(
-    #     0
-    # )
-
     set_seed(555)  # make deterministic
 
     # generate speech
@@ -51,20 +46,22 @@ def query_model(text):
         inputs["input_ids"], speaker_embeddings=speaker_embeddings, vocoder=vocoder
     )
 
-    return speech
+    prepare_dist_folder()
+    save_audio_from_speech(speech, "./dist/output.wav")
 
 
-def save_audio(speech, filename):
-    dir_name = os.path.dirname(filename)
-    if not (os.path.exists(dir_name) and os.path.isdir(dir_name)):
+def prepare_dist_folder():
+    dir_name = os.path.dirname(TARGET_FILE)
+    if not os.path.exists(dir_name):
         os.mkdir(dir_name)
 
+
+def save_audio_from_speech(speech, filename):
     sf.write(filename, speech.numpy(), samplerate=16000)
 
 
 def main():
-    speech = query_model("Aviv Ben Shahar is a great guy!")
-    save_audio(speech, "./dist/output.wav")
+    query_model("Aviv Ben Shahar is a great guy!")
 
 
 if __name__ == "__main__":

@@ -37,6 +37,13 @@ def query_model(text):
     )
     speaker_embeddings = torch.tensor(embeddings_dataset[7306]["xvector"]).unsqueeze(0)
 
+    # embeddings_dataset = load_dataset(
+    #     "blabble-io/libritts_r", "clean", split="train.clean.100"
+    # )
+    # speaker_embeddings = torch.tensor(embeddings_dataset["train.clean.100"]).unsqueeze(
+    #     0
+    # )
+
     set_seed(555)  # make deterministic
 
     # generate speech

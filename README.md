@@ -6,10 +6,18 @@ This is a simple POC to test the Text To Speech functionality in Python.
 
 This POC is using the [`speecht5_tts`](https://huggingface.co/microsoft/speecht5_tts) Model, by Microsoft.
 
+<!-- Another model we support is the [`blabble-io/libritts_r`](https://huggingface.co/datasets/blabble-io/libritts_r) model. -->
+
 ## Installation
 
 ```bash
 pip install -r requirements.txt -U
+```
+
+Add the following Env variables to your `.env` file:
+
+```bash
+HUGGINGFACEHUB_API_TOKEN=<YOUR_TOKEN>
 ```
 
 ## Usage

@@ -55,7 +55,10 @@ def query_model(text):
 
 
 def save_audio(speech, filename):
-    os.mkdir(os.path.dirname(filename))
+    dir_name = os.path.dirname(filename)
+    if not (os.path.exists(dir_name) and os.path.isdir(dir_name)):
+        os.mkdir(dir_name)
+
     sf.write(filename, speech.numpy(), samplerate=16000)
 
 

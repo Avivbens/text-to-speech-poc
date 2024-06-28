@@ -2,19 +2,11 @@
 
 This is a simple POC to test the Text To Speech functionality in Python.
 
-## Model
+## Models
 
-This POC is using the [`speecht5_tts`](https://huggingface.co/microsoft/speecht5_tts) Model, by Microsoft.
+- [`simple`](./src/simple.py) - [`speecht5_tts`](https://huggingface.co/microsoft/speecht5_tts) Model, by Microsoft, using the dataset of [`Matthijs/cmu-arctic-xvectors`](https://huggingface.co/datasets/Matthijs/cmu-arctic-xvectors)
 
-### Future
-
-Using the [`parler_tts_mini_v0.1`](https://huggingface.co/parler-tts/parler_tts_mini_v0.1) model, with the `Rich` dataset.
-
-### Dataset
-
-- Simple dataset - [`Matthijs/cmu-arctic-xvectors`](https://huggingface.co/datasets/Matthijs/cmu-arctic-xvectors)
-
-- Rich dataset - [`blabble-io/libritts_r`](https://huggingface.co/datasets/blabble-io/libritts_r)
+- [`rich`](./src/tts_rich.py) - [`parler_tts_mini_v0.1`](https://huggingface.co/parler-tts/parler_tts_mini_v0.1)
 
 ## Installation
 

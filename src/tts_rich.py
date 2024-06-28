@@ -19,8 +19,16 @@ os.environ["REQUESTS_CA_BUNDLE"] = certifi.where()
 # load environment variables
 load_dotenv(find_dotenv())
 
-TARGET_FILE = "dist/output-rich.wav"
+# Support for GPU (requires an Intel based MacOS)
 DEVICE = "cuda:0" if torch.cuda.is_available() else "cpu"
+TARGET_FILE = "dist/output-rich.wav"
+
+SYSTEM_DETAILS = list(
+    {
+        "A male speaker with a strong low voice. He talks very clearly with a bit higher tone, with very clear audio quality. Try to sound like a radio host or a podcast host. The speaker should sound like a professional speaker, with a clear and strong voice. Make the speed of his words a bit faster than normal, but not too fast.",
+        "A cool male speaker with a strong low voice, in a very confined sounding environment with very clear audio quality. Try to sound like a radio host or a podcast host. The speaker should sound like a professional speaker, with a clear and strong voice.",
+    }
+)
 
 
 def query_model(text, description):
@@ -33,7 +41,10 @@ def query_model(text, description):
     input_ids = tokenizer(description, return_tensors="pt").input_ids.to(DEVICE)
     prompt_input_ids = tokenizer(text, return_tensors="pt").input_ids.to(DEVICE)
 
-    generation = model.generate(input_ids=input_ids, prompt_input_ids=prompt_input_ids)
+    generation = model.generate(
+        input_ids=input_ids,
+        prompt_input_ids=prompt_input_ids,
+    )
     audio_arr = generation.cpu().numpy().squeeze()
 
     prepare_dist_folder()
@@ -52,8 +63,8 @@ def save_audio_from_speech(audio_arr, samplerate):
 
 def main():
     query_model(
-        "Aviv Ben Shahar is a great guy!",
-        "A female speaker with a slightly low-pitched voice delivers her words quite expressively, in a very confined sounding environment with clear audio quality. She speaks very fast.",
+        "Hello everyone! I am your virtual host for today, We're about to talk about the latest trends in AI and machine learning, Let's dive in! The following is a brief of the article you've asked me to read for you.",
+        SYSTEM_DETAILS[1],
     )
 
 

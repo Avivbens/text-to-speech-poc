@@ -24,7 +24,7 @@ os.environ["REQUESTS_CA_BUNDLE"] = certifi.where()
 # load environment variables
 load_dotenv(find_dotenv())
 
-TARGET_FILE = "dist/output.wav"
+TARGET_FILE = "dist/output-simple.wav"
 
 
 def query_model(text):
@@ -47,7 +47,7 @@ def query_model(text):
     )
 
     prepare_dist_folder()
-    save_audio_from_speech(speech, "./dist/output.wav")
+    save_audio_from_speech(speech)
 
 
 def prepare_dist_folder():
@@ -56,8 +56,8 @@ def prepare_dist_folder():
         os.mkdir(dir_name)
 
 
-def save_audio_from_speech(speech, filename):
-    sf.write(filename, speech.numpy(), samplerate=16000)
+def save_audio_from_speech(speech):
+    sf.write(TARGET_FILE, speech.numpy(), samplerate=16000)
 
 
 def main():

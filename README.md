@@ -34,7 +34,7 @@ HUGGINGFACEHUB_API_TOKEN=<YOUR_TOKEN>
 
 ```bash
 source .venv/bin/activate
-py src/main.py
+py src/simple.py
 ```
 
 ### IDE
